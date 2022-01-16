@@ -50,7 +50,7 @@ app.delete("/api/notes/:id",(req, res) => {
     var notes = JSON.parse(rawData);
 
     const indexToDelete = notes.findIndex(note => {
-        return note.id === req.params.id;
+        return note.id == req.params.id;
     });
     if (indexToDelete >= 0) {
         notes.splice(indexToDelete, 1);
