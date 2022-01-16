@@ -45,6 +45,20 @@ app.post('/api/notes', (req, res) => {
     res.json(req.body);
 });
 
+app.delete("/api/notes/:id",(req, res) => {
+    var rawData = fs.readFileSync('./db/db.json');
+    var notes = JSON.parse(rawData);
+
+    const indexToDelete = notes.findIndex(note => {
+        return note.id === req.params.id;
+    });
+    if (indexToDelete >= 0) {
+        notes.splice(indexToDelete, 1);
+        fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+    }
+    res.json(notes);
+});
+
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 })
